@@ -1,5 +1,5 @@
 # Build stage
-FROM node:18-alpine as build
+FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
@@ -7,24 +7,24 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies with specific flags
+# Install dependencies
 RUN npm install --legacy-peer-deps
 
 # Copy all files
-COPY . .
+COPY . /app/.
 
 # Set environment variables
 ENV NODE_ENV=production
 ENV CI=false
 
-# Build the app with specific flags
-RUN npm run build || (echo "Build failed" && exit 1)
+# Build the app
+RUN npm run build
 
 # Production stage
 FROM nginx:alpine
 
 # Copy built assets from build stage
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
