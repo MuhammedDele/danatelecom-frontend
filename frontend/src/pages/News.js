@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { getNews, getNewsById, likeNews, addComment, deleteComment, addReply, deleteReply, getCurrentUser } from '../services/api';
 import { FaHeart, FaRegHeart, FaComment, FaShare, FaTrash } from 'react-icons/fa';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const News = () => {
     const { id } = useParams();

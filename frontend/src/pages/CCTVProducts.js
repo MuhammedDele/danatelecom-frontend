@@ -19,7 +19,7 @@ const CCTVProducts = () => {
             // Ensure image URLs are properly formatted
             const formattedData = data.map(product => ({
                 ...product,
-                image: product.image ? `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${product.image}` : null
+                image: product.image ? `${process.env.REACT_APP_API_URL}${product.image}` : null
             }));
             setProducts(formattedData);
             setError(null);
