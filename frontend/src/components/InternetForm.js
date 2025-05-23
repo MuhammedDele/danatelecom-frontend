@@ -1,0 +1,169 @@
+    return (
+        <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+                <div className="bg-red-900/50 border border-red-500 text-red-400 px-4 py-3 rounded relative">
+                    {error}
+                </div>
+            )}
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">العنوان *</label>
+                <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                />
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">الوصف *</label>
+                <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                    rows={3}
+                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                />
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">السعر *</label>
+                <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    required
+                    min="0"
+                    step="0.01"
+                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                />
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">النوع *</label>
+                <select
+                    name="type_detail"
+                    value={formData.type_detail}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                >
+                    <option value="fiber">فايبر</option>
+                    <option value="wireless">لاسلكي</option>
+                    <option value="satellite">قمر صناعي</option>
+                </select>
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">الصورة {!product && '*'}</label>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    required={!product}
+                    className="mt-1 block w-full text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+                />
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">المميزات</label>
+                {features.map((feature, index) => (
+                    <div key={index} className="flex gap-2 mt-2">
+                        <input
+                            type="text"
+                            value={feature}
+                            onChange={(e) => handleFeatureChange(index, e.target.value)}
+                            className="flex-1 rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => removeFeature(index)}
+                            className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                        >
+                            حذف
+                        </button>
+                    </div>
+                ))}
+                <button
+                    type="button"
+                    onClick={addFeature}
+                    className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                    إضافة ميزة
+                </button>
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-blue-400">المواصفات</label>
+                {Object.entries(specifications).map(([key, value], index) => (
+                    <div key={index} className="mt-2 flex items-center gap-2">
+                        <input
+                            type="text"
+                            value={key}
+                            onChange={(e) => {
+                                const newSpecs = { ...specifications };
+                                delete newSpecs[key];
+                                newSpecs[e.target.value] = value;
+                                setSpecifications(newSpecs);
+                            }}
+                            placeholder="المفتاح"
+                            className="block w-1/3 rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                        />
+                        <input
+                            type="text"
+                            value={value}
+                            onChange={(e) => handleSpecificationChange(key, e.target.value)}
+                            placeholder="القيمة"
+                            className="block w-1/3 rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => removeSpecification(key)}
+                            className="text-red-600 hover:text-red-800"
+                        >
+                            حذف
+                        </button>
+                    </div>
+                ))}
+                <button
+                    type="button"
+                    onClick={addSpecification}
+                    className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                    إضافة مواصفة
+                </button>
+            </div>
+
+            <div className="flex items-center">
+                <input
+                    type="checkbox"
+                    name="isActive"
+                    checked={formData.isActive}
+                    onChange={handleChange}
+                    className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500"
+                />
+                <label className="mr-2 block text-sm font-medium text-blue-400">متوفر</label>
+            </div>
+
+            <div className="flex justify-end gap-4">
+                <button
+                    type="button"
+                    onClick={onCancel}
+                    className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+                >
+                    إلغاء
+                </button>
+                <button
+                    type="submit"
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                    {product ? 'تحديث' : 'إنشاء'} المنتج
+                </button>
+            </div>
+        </form>
+    ); 
