@@ -4,17 +4,21 @@ FROM node:18-alpine as build
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies with specific flags
+RUN npm install --legacy-peer-deps
 
 # Copy all files
 COPY . .
 
-# Build the app
-RUN npm run build
+# Set environment variables
+ENV NODE_ENV=production
+ENV CI=false
+
+# Build the app with specific flags
+RUN npm run build || (echo "Build failed" && exit 1)
 
 # Production stage
 FROM nginx:alpine
