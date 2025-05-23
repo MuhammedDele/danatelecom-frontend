@@ -4,6 +4,11 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
+# Set environment variables for build optimization
+ENV NODE_ENV=production
+ENV CI=false
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 # Copy package files
 COPY package*.json ./
 
@@ -13,11 +18,7 @@ RUN npm install --legacy-peer-deps
 # Copy all files
 COPY . /app/.
 
-# Set environment variables
-ENV NODE_ENV=production
-ENV CI=false
-
-# Build the app
+# Build the app with increased memory limit
 RUN npm run build
 
 # Production stage
