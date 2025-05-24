@@ -79,7 +79,7 @@ export const getCCTVProducts = async () => {
     const response = await api.get('/api/cctv-products');
     return response.data.map(product => ({
         ...product,
-        image: product.image ? product.image : null,
+        image: product.image ? product.image.replace(/\/+/g, '/') : null,
     }));
 };
 
@@ -111,7 +111,7 @@ export const getNanoBeamProducts = async () => {
     const response = await api.get('/api/nanobeam-products');
     return response.data.map(product => ({
         ...product,
-        image: product.image ? product.image : null,
+        image: product.image ? product.image.replace(/\/+/g, '/') : null,
     }));
 };
 
@@ -143,7 +143,7 @@ export const getInternetPackages = async () => {
     const response = await api.get('/api/internet-packages');
     return response.data.map(product => ({
         ...product,
-        image: product.image ? product.image : null,
+        image: product.image ? product.image.replace(/\/+/g, '/') : null,
     }));
 };
 
