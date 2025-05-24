@@ -340,14 +340,25 @@ const AdminDashboard = () => {
                     {products[selectedCategory].map((product) => (
                         <div key={product._id} className="bg-gray-800 p-6 rounded-lg">
                             <div className="flex justify-between items-start">
-                                <div>
-                                    <h3 className="text-xl font-bold text-blue-400">{product.title}</h3>
-                                    <p className="text-gray-300 mt-2">{product.description}</p>
-                                    <div className="flex items-center gap-4 mt-4 text-gray-400 text-sm">
-                                        <span>{product.price} ريال</span>
-                                        <span className={product.isActive ? 'text-green-400' : 'text-red-400'}>
-                                            {product.isActive ? 'متوفر' : 'غير متوفر'}
-                                        </span>
+                                <div className="flex gap-4">
+                                    {product.image && (
+                                        <div className="w-32 h-32 flex-shrink-0">
+                                            <img 
+                                                src={product.image} 
+                                                alt={product.title}
+                                                className="w-full h-full object-cover rounded-lg"
+                                            />
+                                        </div>
+                                    )}
+                                    <div>
+                                        <h3 className="text-xl font-bold text-blue-400">{product.title}</h3>
+                                        <p className="text-gray-300 mt-2">{product.description}</p>
+                                        <div className="flex items-center gap-4 mt-4 text-gray-400 text-sm">
+                                            <span>{product.price} ريال</span>
+                                            <span className={product.isActive ? 'text-green-400' : 'text-red-400'}>
+                                                {product.isActive ? 'متوفر' : 'غير متوفر'}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="flex gap-2">
