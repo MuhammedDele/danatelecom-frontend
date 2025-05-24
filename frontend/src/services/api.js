@@ -76,106 +76,88 @@ export const updateProfile = async (profileData) => {
 
 // CCTV Products API calls
 export const getCCTVProducts = async () => {
-    const response = await axios.get(`${API_URL}/cctv-products`);
+    const response = await api.get('/api/cctv-products');
     return response.data;
 };
 
 export const createCCTVProduct = async (formData) => {
-    const response = await axios.post(`${API_URL}/cctv-products`, formData, {
+    const response = await api.post('/api/cctv-products', formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const updateCCTVProduct = async (id, formData) => {
-    const response = await axios.put(`${API_URL}/cctv-products/${id}`, formData, {
+    const response = await api.put(`/api/cctv-products/${id}`, formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const deleteCCTVProduct = async (id) => {
-    const response = await axios.delete(`${API_URL}/cctv-products/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
-    });
+    const response = await api.delete(`/api/cctv-products/${id}`);
     return { success: true, message: response.data.message };
 };
 
 // NanoBeam Products API calls
 export const getNanoBeamProducts = async () => {
-    const response = await axios.get(`${API_URL}/nanobeam-products`);
+    const response = await api.get('/api/nanobeam-products');
     return response.data;
 };
 
 export const createNanoBeamProduct = async (formData) => {
-    const response = await axios.post(`${API_URL}/nanobeam-products`, formData, {
+    const response = await api.post('/api/nanobeam-products', formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const updateNanoBeamProduct = async (id, formData) => {
-    const response = await axios.put(`${API_URL}/nanobeam-products/${id}`, formData, {
+    const response = await api.put(`/api/nanobeam-products/${id}`, formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const deleteNanoBeamProduct = async (id) => {
-    const response = await axios.delete(`${API_URL}/nanobeam-products/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
-    });
+    const response = await api.delete(`/api/nanobeam-products/${id}`);
     return { success: true, message: response.data.message };
 };
 
 // Internet Packages API calls
 export const getInternetPackages = async () => {
-    const response = await axios.get(`${API_URL}/internet-packages`);
+    const response = await api.get('/api/internet-packages');
     return response.data;
 };
 
 export const createInternetPackage = async (formData) => {
-    const response = await axios.post(`${API_URL}/internet-packages`, formData, {
+    const response = await api.post('/api/internet-packages', formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const updateInternetPackage = async (id, formData) => {
-    const response = await axios.put(`${API_URL}/internet-packages/${id}`, formData, {
+    const response = await api.put(`/api/internet-packages/${id}`, formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const deleteInternetPackage = async (id) => {
-    const response = await axios.delete(`${API_URL}/internet-packages/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
-    });
+    const response = await api.delete(`/api/internet-packages/${id}`);
     return { success: true, message: response.data.message };
 };
 
