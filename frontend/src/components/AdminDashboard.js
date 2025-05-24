@@ -77,7 +77,7 @@ const AdminDashboard = () => {
             const formatImageUrls = (products) => {
                 return products.map(product => ({
                     ...product,
-                    image: product.image ? `${API_URL}${product.image}` : null
+                    image: product.image ? `${process.env.REACT_APP_API_URL}${product.image}` : null
                 }));
             };
 

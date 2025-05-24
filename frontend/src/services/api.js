@@ -163,14 +163,14 @@ export const deleteInternetPackage = async (id) => {
 
 // News API calls
 export const getNews = async () => {
-    const response = await axios.get(`${API_URL}/news`);
+    const response = await api.get('/api/news');
     return response.data;
 };
 
 export const getNewsById = async (id) => {
     try {
         console.log('Fetching news with ID:', id);
-        const response = await axios.get(`${API_URL}/news/${id}`);
+        const response = await api.get(`/api/news/${id}`);
         console.log('News API response:', response.data);
         return response.data;
     } catch (error) {
@@ -180,58 +180,36 @@ export const getNewsById = async (id) => {
 };
 
 export const createNews = async (formData) => {
-    const response = await axios.post(`${API_URL}/news`, formData, {
+    const response = await api.post('/api/news', formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const updateNews = async (id, formData) => {
-    const response = await axios.put(`${API_URL}/news/${id}`, formData, {
+    const response = await api.put(`/api/news/${id}`, formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'Content-Type': 'multipart/form-data'
         }
     });
     return { success: true, data: response.data };
 };
 
 export const deleteNews = async (id) => {
-    const response = await axios.delete(`${API_URL}/news/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
-    });
+    const response = await api.delete(`/api/news/${id}`);
     return { success: true, message: response.data.message };
 };
 
 export const likeNews = async (id) => {
-    const response = await axios.post(`${API_URL}/news/${id}/like`, {}, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-        }
-    });
+    const response = await api.post(`/api/news/${id}/like`);
     return response.data;
 };
 
 export const addComment = async (id, content) => {
     try {
-        const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken');
-        if (!token) {
-            throw new Error('No authentication token found');
-        }
-
-        const response = await axios.post(`${API_URL}/news/${id}/comment`, 
-            { content },
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }
-        );
+        const response = await api.post(`/api/news/${id}/comment`, { content });
         return response.data;
     } catch (error) {
         console.error('Error in addComment:', error);
@@ -241,25 +219,8 @@ export const addComment = async (id, content) => {
 
 export const deleteComment = async (newsId, commentId) => {
     try {
-        const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken');
-        if (!token) {
-            throw new Error('No authentication token found');
-        }
-
-        // First delete the comment
-        await axios.delete(`${API_URL}/news/${newsId}/comment/${commentId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        // Then fetch the updated news post
-        const response = await axios.get(`${API_URL}/news/${newsId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
+        await api.delete(`/api/news/${newsId}/comment/${commentId}`);
+        const response = await api.get(`/api/news/${newsId}`);
         return response.data;
     } catch (error) {
         console.error('Error in deleteComment:', error);
@@ -267,43 +228,15 @@ export const deleteComment = async (newsId, commentId) => {
     }
 };
 
-// Add a reply to a comment
 export const addReply = async (newsId, commentId, content) => {
-    const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken');
-    const response = await axios.post(`${API_URL}/news/${newsId}/comment/${commentId}/reply`, 
-        { content },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        }
-    );
+    const response = await api.post(`/api/news/${newsId}/comment/${commentId}/reply`, { content });
     return response.data;
 };
 
-// Delete a reply
 export const deleteReply = async (newsId, commentId, replyId) => {
     try {
-        const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken');
-        if (!token) {
-            throw new Error('No authentication token found');
-        }
-
-        // First delete the reply
-        await axios.delete(`${API_URL}/news/${newsId}/comment/${commentId}/reply/${replyId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        // Then fetch the updated news post
-        const response = await axios.get(`${API_URL}/news/${newsId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
+        await api.delete(`/api/news/${newsId}/comment/${commentId}/reply/${replyId}`);
+        const response = await api.get(`/api/news/${newsId}`);
         return response.data;
     } catch (error) {
         console.error('Error in deleteReply:', error);
