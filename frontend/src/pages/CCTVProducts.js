@@ -132,7 +132,7 @@ const CCTVProducts = () => {
                                     onClick={() => setSelectedImage(product.image)}
                                     onError={(e) => {
                                         e.target.onerror = null;
-                                        e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
+                                        e.target.src = 'https://placehold.co/600x400';
                                     }}
                                 />
                             ) : (

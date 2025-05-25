@@ -70,17 +70,14 @@ export const getCurrentUser = async () => {
 };
 
 export const updateProfile = async (profileData) => {
-    const response = await api.put('/auth/profile', profileData);
+    const response = await api.put('/api/auth/profile', profileData);
     return response.data;
 };
 
 // CCTV Products API calls
 export const getCCTVProducts = async () => {
     const response = await api.get('/api/cctv-products');
-    return response.data.map(product => ({
-        ...product,
-        image: product.image ? product.image.replace(/\/+/g, '/') : null,
-    }));
+    return response.data;
 };
 
 export const createCCTVProduct = async (formData) => {
@@ -109,10 +106,7 @@ export const deleteCCTVProduct = async (id) => {
 // NanoBeam Products API calls
 export const getNanoBeamProducts = async () => {
     const response = await api.get('/api/nanobeam-products');
-    return response.data.map(product => ({
-        ...product,
-        image: product.image ? product.image.replace(/\/+/g, '/') : null,
-    }));
+    return response.data;
 };
 
 export const createNanoBeamProduct = async (formData) => {
@@ -141,10 +135,7 @@ export const deleteNanoBeamProduct = async (id) => {
 // Internet Packages API calls
 export const getInternetPackages = async () => {
     const response = await api.get('/api/internet-packages');
-    return response.data.map(product => ({
-        ...product,
-        image: product.image ? product.image.replace(/\/+/g, '/') : null,
-    }));
+    return response.data;
 };
 
 export const createInternetPackage = async (formData) => {
