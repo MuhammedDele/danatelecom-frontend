@@ -304,7 +304,7 @@ const News = () => {
                                 className="w-full h-96 object-cover"
                                 onError={(e) => {
                                     e.target.onerror = null;
-                                    e.target.src = '/placeholder-image.jpg';
+                                    e.target.src = 'https://placehold.co/600x400';
                                 }}
                             />
                         )}
@@ -496,7 +496,7 @@ const News = () => {
                                         className="w-full h-48 object-cover"
                                         onError={(e) => {
                                             e.target.onerror = null;
-                                            e.target.src = '/placeholder-image.jpg';
+                                            e.target.src = 'https://placehold.co/600x400';
                                         }}
                                     />
                                 )}

@@ -42,31 +42,34 @@ const AdminDashboard = () => {
     const [news, setNews] = useState([]);
     const [editingNews, setEditingNews] = useState(null);
 
+    // Separate useEffect for initial admin check
     useEffect(() => {
-        checkAdminStatus();
-        fetchNews();
-    });
-
-    const checkAdminStatus = async () => {
-        try {
-            const user = await getCurrentUser();
-            if (user.role !== 'admin') {
-                navigate('/'); // Redirect non-admin users to home
-                return;
+        const initializeDashboard = async () => {
+            try {
+                const user = await getCurrentUser();
+                if (user.role !== 'admin') {
+                    navigate('/');
+                    return;
+                }
+                setIsAdmin(true);
+                await Promise.all([
+                    fetchAllProducts(),
+                    fetchNews()
+                ]);
+            } catch (error) {
+                console.error('Error initializing dashboard:', error);
+                setError('Failed to load dashboard data');
+                navigate('/login');
+            } finally {
+                setLoading(false);
             }
-            setIsAdmin(true);
-            await fetchAllProducts();
-        } catch (error) {
-            console.error('Error checking admin status:', error);
-            navigate('/login');
-        } finally {
-            setLoading(false);
-        }
-    };
+        };
+
+        initializeDashboard();
+    }, [navigate]); // Only run on mount and if navigate changes
 
     const fetchAllProducts = async () => {
         try {
-            setLoading(true);
             const [cctvData, nanobeamData, internetData] = await Promise.all([
                 getCCTVProducts(),
                 getNanoBeamProducts(),
@@ -90,8 +93,7 @@ const AdminDashboard = () => {
         } catch (err) {
             setError('Failed to fetch products');
             console.error('Error fetching products:', err);
-        } finally {
-            setLoading(false);
+            throw err; // Re-throw to be caught by the parent try-catch
         }
     };
 
@@ -101,6 +103,7 @@ const AdminDashboard = () => {
             setNews(data);
         } catch (err) {
             console.error('Error fetching news:', err);
+            throw err; // Re-throw to be caught by the parent try-catch
         }
     };
 

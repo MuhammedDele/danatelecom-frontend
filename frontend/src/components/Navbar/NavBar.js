@@ -37,7 +37,7 @@ const NavBar = () => {
       };
       window.addEventListener('scroll', scrollHandler);
       return () => window.removeEventListener('scroll', scrollHandler);
-    }, [top]);
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
