@@ -123,7 +123,7 @@ const NanoBeamProducts = () => {
                                         className="w-full h-full object-cover transition-opacity duration-300 transform hover:scale-105"
                                         onError={(e) => {
                                             e.target.onerror = null;
-                                            e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
+                                            e.target.src = 'https://placehold.co/600x400';
                                         }}
                                         onClick={() => setSelectedImage(product.image)} // Optional: full view
                                     />
