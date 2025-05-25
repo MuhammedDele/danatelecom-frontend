@@ -34,7 +34,7 @@ const NavLinks = ({ onNavItemClick }) => {
         <div className="flex flex-col lg:flex-row items-start lg:items-center lg:space-x-8 rtl:lg:space-x-reverse" ref={dropdownRef}>
             <HashLink
                 className="w-full lg:w-auto py-2 lg:py-0 px-4 text-sm md:text-base font-extrabold text-gray-300 hover:text-blue-400 transition-colors border-b lg:border-b-0 border-gray-700"
-                smooth to="/about"
+                smooth to="/#hero"
                 onClick={handleLinkClick}
             >
                 الرئيسية

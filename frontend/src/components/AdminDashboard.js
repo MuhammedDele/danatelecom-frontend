@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     getCCTVProducts,
@@ -24,7 +24,7 @@ import NanoBeamForm from './NanoBeamForm';
 import InternetPackageForm from './InternetPackageForm';
 import NewsForm from './NewsForm';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         checkAdminStatus();
         fetchNews();
-    }, []);
+    });
 
     const checkAdminStatus = async () => {
         try {
